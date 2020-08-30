@@ -214,8 +214,8 @@ void printSequenceAllK_Maps(std::ifstream &inputStream, std::map<std::string, Se
 
         Sequence &sq = environment_sequences.at(tmp);
         for (unsigned int i = 0; i < sq.numberOfBits(); i++) {
-            auto truthTableK = sq.makeTruthTable(i, true);
-            auto truthTableJ = sq.makeTruthTable(i, false);
+            auto truthTableK = sq.makeTruthTable(i, false);
+            auto truthTableJ = sq.makeTruthTable(i, true);
             std::cout << "\nK-Map for K" << i << std::endl;
             truthTableK.printKMap();
 
