@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <cmath>
 #include "Truthtable.h"
+#include <TextTable.h>
 
 class Sequence {
 public:

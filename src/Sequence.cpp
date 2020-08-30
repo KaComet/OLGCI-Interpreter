@@ -63,15 +63,28 @@ JK_State Sequence::getJK(MinTerm state, unsigned int bitNumber) const {
 }
 
 void Sequence::printTable() {
-    printf("State | JK_max, JK_max-1... | Next\n");
+    TextTable t('-', '|', '-');
+
+    t.add("Current State");
+    for (unsigned int i= nBits; i > 0; i--) {
+        t.add("J" + std::to_string(i - 1));
+        t.add("K" + std::to_string(i - 1));
+    }
+    t.add("Next State");
+    t.endOfRow();
+
     for (unsigned int i = 0; i <= getBitmask(nBits); i++) {
-        printf("%s", toBinaryString(i, nBits).c_str());
+        t.add(toBinaryString(i, nBits));
         for (unsigned j = nBits; j > 0; j--) {
             JK_State jkTmp = getJK(i, j - 1);
-            printf(" | %s %s", bit_result::toString(jkTmp.j).c_str(), bit_result::toString(jkTmp.k).c_str());
+            t.add(bit_result::toString(jkTmp.j));
+            t.add(bit_result::toString(jkTmp.k));
         }
-        printf(" | %s\n", toBinaryString(getNext(i), nBits).c_str());
+        t.add(toBinaryString(getNext(i), nBits));
+        t.endOfRow();
     }
+
+    std::cout << t;
 }
 
 Truthtable Sequence::makeTruthTable(unsigned int bitNumber, bool gettingJ_Not_K) const {
