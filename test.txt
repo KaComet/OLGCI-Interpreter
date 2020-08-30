@@ -9,4 +9,5 @@ Define Sequence sq1
     1 -> 0
 End
 
+Print Excitation sq1
 Print K-Maps sq1

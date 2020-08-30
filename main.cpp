@@ -20,7 +20,8 @@ enum class Lexicon_Define_SEQUENCE {
 };
 
 enum class Lexicon_Print {
-    K_Maps
+    K_Maps,
+    EXCITATION_TABLE
 };
 
 Sequence loadSequence(std::ifstream &inputStream);
@@ -33,6 +34,7 @@ void print(std::ifstream &inputStream, std::map<std::string, Lexicon_Print> &lex
 
 void printSequenceAllK_Maps(std::ifstream &inputStream, std::map<std::string, Sequence> &environment_sequences);
 
+void printSequenceExcitation(std::ifstream &inputStream, std::map<std::string, Sequence> &environment_sequences);
 
 int main(int argc, char *argv[]) {
     if (argc <= 1) {
@@ -58,7 +60,8 @@ int main(int argc, char *argv[]) {
     };
 
     std::pair<std::string, Lexicon_Print> Lexicon_Print_Data[] = {
-            std::make_pair("K-Maps", Lexicon_Print::K_Maps)
+            std::make_pair("K-Maps", Lexicon_Print::K_Maps),
+            std::make_pair("Excitation", Lexicon_Print::EXCITATION_TABLE)
     };
 
     std::map<std::string, Lexicon> lexicon(lexicon_data, lexicon_data + sizeof lexicon_data / sizeof lexicon_data[0]);
@@ -203,6 +206,9 @@ void print(std::ifstream &inputStream, std::map<std::string, Lexicon_Print> &lex
             case Lexicon_Print::K_Maps:
                 printSequenceAllK_Maps(inputStream, environment_sequences);
                 return;
+            case Lexicon_Print::EXCITATION_TABLE:
+                printSequenceExcitation(inputStream, environment_sequences);
+                return;
         }
     }
 }
@@ -222,6 +228,18 @@ void printSequenceAllK_Maps(std::ifstream &inputStream, std::map<std::string, Se
             std::cout << "\nK-Map for J" << i << std::endl;
             truthTableJ.printKMap();
         }
+
+        return;
+    }
+}
+
+void printSequenceExcitation(std::ifstream &inputStream, std::map<std::string, Sequence> &environment_sequences) {
+    while (!inputStream.eof()) {
+        std::string tmp;
+        inputStream >> tmp;
+
+        Sequence &sq = environment_sequences.at(tmp);
+        sq.printTable();
 
         return;
     }
