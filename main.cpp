@@ -81,6 +81,10 @@ int main(int argc, char *argv[]) {
             std::string tmp;
             file >> tmp;
             Lexicon thisLex;
+
+            if (tmp.empty())
+                continue;
+
             try {
                 thisLex = lexicon.at(tmp);
             } catch (std::out_of_range &e) {
@@ -104,29 +108,6 @@ int main(int argc, char *argv[]) {
     } else {
         std::cout << "Input file could not be loaded.";
     }
-
-    /*
-    Sequence testSequence(3);
-
-    testSequence.setNext(0b000, 0b101);
-    testSequence.setNext(0b101, 0b011);
-    testSequence.setNext(0b011, 0b010);
-    testSequence.setNext(0b010, 0b111);
-    testSequence.setNext(0b001, 0b000);
-    testSequence.setNext(0b100, 0b000);
-    testSequence.setNext(0b110, 0b000);
-    testSequence.setNext(0b111, 0b001);
-
-    for (unsigned int i = 0; i < 3; i++) {
-        auto truthTableK = testSequence.makeTruthTable(i, true);
-        auto truthTableJ = testSequence.makeTruthTable(i, false);
-        std::cout << "\nK-Map for K" << i << std::endl;
-        truthTableK.printKMap();
-
-        std::cout << "\nK-Map for J" << i << std::endl;
-        truthTableJ.printKMap();
-    }
-     */
 
     return 0;
 }
@@ -155,7 +136,6 @@ void define(std::ifstream &inputStream, std::map<std::string, Lexicon_Define> &l
 
 Sequence loadSequence(std::ifstream &inputStream) {
     std::optional<Sequence> result = std::nullopt;
-    bool definedEnough = false;
     bool hasFoundEnd = false;
     while (!inputStream.eof()) {
         std::string tmpStr;
@@ -170,30 +150,28 @@ Sequence loadSequence(std::ifstream &inputStream) {
 
         result = Sequence(nBits, defaultState);
 
-        definedEnough = true;
-
         MinTerm current;
         MinTerm next;
         bool isLoadingNextNotCurrent = false;
-        bool skiping = false;
+        bool skipping = false;
         while (!hasFoundEnd) {
             std::string tmpLD;
             inputStream >> tmpLD;
 
             if (tmpLD == "End") {
                 hasFoundEnd = true;
-                break;
+                continue;
             }
 
-            if (skiping) {
-                skiping = false;
+            if (skipping) {
+                skipping = false;
                 continue;
             }
 
             if (!isLoadingNextNotCurrent) {
                 current = std::stoi(tmpLD);
                 isLoadingNextNotCurrent = true;
-                skiping = true;
+                skipping = true;
             } else {
                 next = std::stoi(tmpLD);
                 result.value().setNext(current, next);
@@ -209,7 +187,6 @@ Sequence loadSequence(std::ifstream &inputStream) {
 
 void print(std::ifstream &inputStream, std::map<std::string, Lexicon_Print> &lexicon_print,
            std::map<std::string, Sequence> &environment_sequences) {
-    bool completeStatement = false;
     while (!inputStream.eof()) {
         std::string tmp;
         inputStream >> tmp;
@@ -225,6 +202,7 @@ void print(std::ifstream &inputStream, std::map<std::string, Lexicon_Print> &lex
         switch (thisLexP) {
             case Lexicon_Print::K_Maps:
                 printSequenceAllK_Maps(inputStream, environment_sequences);
+                return;
         }
     }
 }
@@ -244,5 +222,7 @@ void printSequenceAllK_Maps(std::ifstream &inputStream, std::map<std::string, Se
             std::cout << "\nK-Map for J" << i << std::endl;
             truthTableJ.printKMap();
         }
+
+        return;
     }
 }
