@@ -54,7 +54,12 @@ void Truthtable::printKMap() {
             unsigned int greyIndexHorz = binaryToGray(j);
             unsigned int greyIndex = (greyIndexVert << widthInBits) + greyIndexHorz;
 
-            t.add(bit_result::toString(get(greyIndex).value()));
+            std::optional<BIT_RESULT> cellValue = get(greyIndex);
+
+            if (!cellValue.has_value())
+                cellValue = defaultOutput;
+
+            t.add(bit_result::toString(cellValue.value()));
             t.setAlignment(j + 1, TextTable::Alignment::RIGHT);
         }
         t.endOfRow();
