@@ -1,0 +1,12 @@
+Define Sequence sq1
+    3
+    other -> 0
+    0 -> 5
+    5 -> 3
+    3 -> 2
+    2 -> 7
+    7 -> 1
+    1 -> 0
+End
+
+Print K-Maps sq1
