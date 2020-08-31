@@ -1,2 +1,9 @@
 /cmake-build-debug/
 /.idea
+/.vs
+/out/build/x64-Debug (default)
+/bin/testing.pdb
+/bin/testing.ilk
+/bin/testing.exe
+/bin/olgci.pdb
+/bin/olgci.ilk

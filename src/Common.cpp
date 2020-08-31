@@ -4,14 +4,14 @@ unsigned int getBitmask(unsigned int nBits) {
     if (nBits == 0)
         return 0;
     else
-        return ((unsigned int) pow(2, nBits - 1)) + getBitmask(nBits - 1);
+        return ((unsigned int)pow(2, nBits - 1)) + getBitmask(nBits - 1);
 }
 
 bool isMintermWithinRange(MinTerm minTerm) {
     return (getBitmask(minTerm) & minTerm) == minTerm;
 }
 
-uint binaryToGray(uint num) {
+unsigned int binaryToGray(unsigned int num) {
     return num ^ (num >> 1); // The operator >> is shift right. The operator ^ is exclusive or.
 }
 

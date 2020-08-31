@@ -51,7 +51,7 @@ unsigned int getBitmask(unsigned int nBits);
 
 bool isMintermWithinRange(MinTerm);
 
-uint binaryToGray(uint num);
+unsigned int binaryToGray(unsigned int num);
 
 std::string toBinaryString(unsigned int number, unsigned int nBits);
 

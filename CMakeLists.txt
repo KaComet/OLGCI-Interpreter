@@ -16,7 +16,17 @@ add_executable(olgci
         src/Common.cpp
         src/Sequence.cpp
         src/Sequence.h
-        include/TextTable.h src/Lexer/Lexer.h src/Lexer/ILexerComponent.h src/Lexer/Lexer.cpp src/Lexer/DefineLexerComponent.cpp src/Lexer/DefineLexerComponent.h src/Lexer/Environment.cpp src/Lexer/Environment.h src/Lexer/LexerCommon.h src/Lexer/PrintLexerComponent.cpp src/Lexer/PrintLexerComponent.h)
+        include/TextTable.h 
+        src/Lexer/Lexer.h 
+        src/Lexer/ILexerComponent.h 
+        src/Lexer/Lexer.cpp 
+        src/Lexer/DefineLexerComponent.cpp 
+        src/Lexer/DefineLexerComponent.h 
+        src/Lexer/Environment.cpp 
+        src/Lexer/Environment.h 
+        src/Lexer/LexerCommon.h 
+        src/Lexer/PrintLexerComponent.cpp 
+        src/Lexer/PrintLexerComponent.h)
 
 
 project(testing)
@@ -36,4 +46,5 @@ add_executable(testing
         src/Common.cpp
         src/Sequence.cpp
         src/Sequence.h
-        include/TextTable.h testing.cpp)
+        include/TextTable.h 
+        testing.cpp)
